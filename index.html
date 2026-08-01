@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Takuho Industries — Precision Carbide Tooling, Japan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16130E;
+    --paper:#F3EEE2;
+    --paper-2:#EAE3D2;
+    --scarlet:#E5391D;
+    --chrome:#FFC400;
+    --petrol:#0D4A46;
+    --iso-p:#2071E0;   /* steel  */
+    --iso-m:#FFC400;   /* stainless */
+    --iso-k:#E5391D;   /* cast iron */
+    --iso-n:#1FA06B;   /* aluminium / non-ferrous */
+    --iso-s:#B0713A;   /* superalloy / titanium */
+    --iso-h:#8B9196;   /* hardened */
+    --edge:rgba(22,19,14,.16);
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  ::selection{background:var(--scarlet);color:var(--paper)}
+
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+
+  /* ---------- type system ---------- */
+  .anton{font-family:"Anton",sans-serif;font-weight:400;line-height:.92;letter-spacing:.5px;text-transform:uppercase}
+  .mono{font-family:"Space Mono",monospace}
+  .eyebrow{
+    font-family:"Space Mono",monospace;
+    font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:currentColor;display:inline-block}
+
+  .display-xl{font-size:clamp(58px,11vw,150px)}
+  .display-l{font-size:clamp(44px,8vw,104px)}
+  .display-m{font-size:clamp(34px,5.5vw,68px)}
+
+  /* rhombic insert marker used as a bullet */
+  .rhomb{width:12px;height:12px;background:var(--scarlet);transform:skewX(-18deg);flex:0 0 auto}
+
+  /* measurement tick rule */
+  .ticks{
+    height:14px;width:100%;
+    background-image:repeating-linear-gradient(90deg,var(--edge) 0 1px,transparent 1px 16px);
+    background-position:bottom;
+    background-size:16px 8px;
+    background-repeat:repeat-x;
+    opacity:.9;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:12px;
+    font-weight:700;font-size:15px;letter-spacing:.02em;
+    padding:15px 26px;border:2px solid var(--ink);border-radius:2px;
+    background:var(--ink);color:var(--paper);
+    transition:transform .18s ease, background .18s ease, color .18s ease;
+    cursor:pointer;
+  }
+  .btn .arw{transition:transform .18s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:hover .arw{transform:translateX(4px)}
+  .btn--scarlet{background:var(--scarlet);border-color:var(--scarlet)}
+  .btn--ghost{background:transparent;color:var(--ink)}
+  .btn--ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn--onink{background:var(--chrome);border-color:var(--chrome);color:var(--ink)}
+
+  a:focus-visible,button:focus-visible,.card:focus-visible{
+    outline:3px solid var(--iso-p);outline-offset:3px;border-radius:2px;
+  }
+
+  /* ---------- announcement strip ---------- */
+  .strip{background:var(--ink);color:var(--paper);overflow:hidden;border-bottom:2px solid var(--ink)}
+  .strip__track{
+    display:flex;white-space:nowrap;gap:0;
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+    padding:9px 0;will-change:transform;animation:marquee 26s linear infinite;
+  }
+  .strip__track span{padding:0 26px;display:inline-flex;align-items:center;gap:26px}
+  .strip__track span::after{content:"◆";color:var(--scarlet)}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;background:var(--paper);
+    border-bottom:2px solid var(--ink);
+  }
+  .nav__in{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:20px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:"Anton";font-size:26px;letter-spacing:1px}
+  .brand__dot{width:14px;height:14px;background:var(--scarlet);transform:skewX(-18deg)}
+  .navlinks{display:flex;gap:30px;align-items:center;font-size:14px;font-weight:600}
+  .navlinks a{position:relative;padding:4px 0}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--scarlet);transition:width .2s ease}
+  .navlinks a:hover::after{width:100%}
+  .nav__meta{font-family:"Space Mono";font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;line-height:1.4}
+  .navtoggle{display:none;background:none;border:2px solid var(--ink);border-radius:2px;padding:8px 12px;font-weight:700;cursor:pointer;font-family:inherit}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:clamp(46px,7vw,84px) 0 0}
+  .hero__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero h1{margin:18px 0 22px}
+  .hero h1 .lead{color:var(--scarlet)}
+  .hero__sub{max-width:44ch;font-size:19px}
+  .hero__cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+  .hero__stats{display:flex;gap:34px;margin-top:44px;flex-wrap:wrap}
+  .stat b{font-family:"Anton";font-size:40px;display:block;line-height:1}
+  .stat span{font-family:"Space Mono";font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.72}
+
+  .insertfig{position:relative;padding:20px}
+  .insertfig svg{width:100%;height:auto}
+  .callout{font-family:"Space Mono";font-size:12px;fill:var(--ink)}
+  .callline{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:3 3}
+
+  /* ---------- generic section ---------- */
+  section{position:relative}
+  .pad{padding:clamp(64px,9vw,120px) 0}
+  .lede{max-width:56ch;font-size:19px;margin-top:20px}
+
+  /* dark story field */
+  .field-ink{background:var(--ink);color:var(--paper)}
+  .field-ink .eyebrow{color:var(--chrome)}
+  .field-ink .rhomb{background:var(--chrome)}
+  .story__grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .story__body p{margin-bottom:18px;opacity:.9;max-width:46ch}
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(243,238,226,.16);border:2px solid rgba(243,238,226,.16)}
+  .kpi{background:var(--ink);padding:26px 24px}
+  .kpi b{font-family:"Anton";font-size:clamp(34px,4vw,52px);color:var(--chrome);display:block;line-height:1}
+  .kpi span{font-family:"Space Mono";font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-top:8px;display:block}
+
+  /* capability grid */
+  .caps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px;border:2px solid var(--ink);background:var(--ink)}
+  .cap{background:var(--paper);padding:34px 30px;min-height:220px;display:flex;flex-direction:column;transition:background .2s ease,color .2s ease}
+  .cap:hover{background:var(--scarlet);color:var(--paper)}
+  .cap__no{font-family:"Space Mono";font-size:12px;letter-spacing:.14em;opacity:.6}
+  .cap h3{font-family:"Anton";font-size:26px;margin:14px 0 10px;letter-spacing:.5px}
+  .cap p{font-size:15.5px;opacity:.85;margin-bottom:auto}
+  .cap .spec{font-family:"Space Mono";font-size:12px;margin-top:18px;letter-spacing:.04em}
+
+  /* grades signature */
+  .field-petrol{background:var(--petrol);color:var(--paper)}
+  .field-petrol .eyebrow{color:var(--chrome)}
+  .grades{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
+  .grade{
+    background:var(--paper);color:var(--ink);border-radius:3px;overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .2s ease;
+  }
+  .grade:hover{transform:translateY(-6px)}
+  .grade__band{height:70px;display:flex;align-items:flex-end;justify-content:space-between;padding:12px 18px}
+  .grade__letter{font-family:"Anton";font-size:44px;color:#fff;line-height:.8;text-shadow:0 2px 0 rgba(0,0,0,.18)}
+  .grade__iso{font-family:"Space Mono";font-size:11px;color:#fff;letter-spacing:.12em;opacity:.9}
+  .grade__body{padding:18px}
+  .grade__mat{font-family:"Anton";font-size:20px;letter-spacing:.4px}
+  .grade__eg{font-size:14px;opacity:.72;margin-top:6px}
+
+  /* insert range */
+  .range{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  .card{
+    background:var(--paper);border:2px solid var(--ink);border-radius:3px;
+    padding:26px 24px;display:flex;flex-direction:column;
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:8px 8px 0 var(--ink)}
+  .card__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .card__geo{width:46px;height:46px}
+  .card__tag{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border:1.5px solid var(--ink);border-radius:2px}
+  .card h3{font-family:"Anton";font-size:34px;letter-spacing:1px}
+  .card__geom{font-family:"Space Mono";font-size:12.5px;margin:6px 0 12px;opacity:.75}
+  .card p{font-size:15px;opacity:.85;margin-bottom:20px}
+  .card__link{margin-top:auto;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px;color:var(--scarlet)}
+  .card__link .arw{transition:transform .18s ease}
+  .card:hover .card__link .arw{transform:translateX(5px)}
+
+  /* precision badge row */
+  .field-chrome{background:var(--chrome);color:var(--ink)}
+  .badges{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;margin-top:48px}
+  .badge{text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .badge svg{width:46px;height:46px}
+  .badge span{font-family:"Space Mono";font-size:12px;letter-spacing:.06em;text-transform:uppercase;line-height:1.35;font-weight:700}
+
+  /* cta */
+  .field-scarlet{background:var(--scarlet);color:var(--paper)}
+  .cta{text-align:center}
+  .cta h2{margin:16px auto 20px;max-width:16ch}
+  .cta p{max-width:52ch;margin:0 auto 34px;font-size:19px;opacity:.95}
+
+  /* footer */
+  footer{background:var(--ink);color:var(--paper)}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:70px 0 40px}
+  .foot .brand{color:var(--paper);margin-bottom:18px}
+  .foot__note{font-family:"Space Mono";font-size:12px;letter-spacing:.06em;opacity:.7;line-height:1.7;max-width:34ch}
+  .foot h4{font-family:"Space Mono";font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.6;margin-bottom:16px}
+  .foot ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px}
+  .foot ul a:hover{color:var(--chrome)}
+  .foot__bar{border-top:1px solid rgba(243,238,226,.18);padding:22px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:"Space Mono";font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+
+  /* reveal */
+  [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  [data-reveal].in{opacity:1;transform:none}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:960px){
+    .hero__grid{grid-template-columns:1fr;gap:20px}
+    .insertfig{max-width:440px;margin:0 auto}
+    .story__grid{grid-template-columns:1fr;gap:34px}
+    .caps{grid-template-columns:1fr 1fr}
+    .grades{grid-template-columns:1fr 1fr}
+    .range{grid-template-columns:1fr 1fr}
+    .badges{grid-template-columns:repeat(3,1fr);gap:28px}
+    .foot{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:620px){
+    body{font-size:16px}
+    .navlinks,.nav__meta{display:none}
+    .navtoggle{display:block}
+    .nav.open .navlinks{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:2px solid var(--ink);padding:18px clamp(20px,5vw,56px);gap:16px}
+    .caps{grid-template-columns:1fr}
+    .grades{grid-template-columns:1fr}
+    .range{grid-template-columns:1fr}
+    .badges{grid-template-columns:1fr 1fr}
+    .foot{grid-template-columns:1fr}
+    .hero__stats{gap:24px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto!important}
+    .strip__track{animation:none}
+    [data-reveal]{opacity:1;transform:none;transition:none}
+    .btn:hover,.grade:hover,.card:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- announcement strip -->
+<div class="strip" aria-hidden="true">
+  <div class="strip__track">
+    <span>Precision Carbide Tooling</span><span>Ground in Japan</span><span>ISO Grades P–H</span><span>Coated Inserts</span><span>Since 1994</span>
+    <span>Precision Carbide Tooling</span><span>Ground in Japan</span><span>ISO Grades P–H</span><span>Coated Inserts</span><span>Since 1994</span>
+  </div>
+</div>
+
+<!-- nav -->
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#top" class="brand"><span class="brand__dot"></span>TAKUHO</a>
+    <nav class="navlinks" aria-label="Primary">
+      <a href="#story">Story</a>
+      <a href="#capability">Capability</a>
+      <a href="#grades">Grades</a>
+      <a href="#range">Inserts</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav__meta">Aichi, Japan<br>Est. 1994</div>
+    <button class="navtoggle" id="navtoggle" aria-expanded="false" aria-label="Toggle menu">Menu</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__grid">
+        <div>
+          <span class="eyebrow" style="color:var(--scarlet)">Takuho Industries — Carbide Tooling</span>
+          <h1 class="anton display-xl">Tolerance<br>is the<br><span class="lead">product.</span></h1>
+          <p class="hero__sub">Carbide inserts and precision components, ground to spec in Japan for over thirty years — and now cutting on shop floors across India.</p>
+          <div class="hero__cta">
+            <a class="btn btn--scarlet" href="https://ventraonline.com.au" target="_blank" rel="noopener">See the insert range <span class="arw">→</span></a>
+            <a class="btn btn--ghost" href="#story">Our story</a>
+          </div>
+          <div class="hero__stats">
+            <div class="stat"><b>30+</b><span>Years grinding</span></div>
+            <div class="stat"><b>≤5µm</b><span>Form tolerance</span></div>
+            <div class="stat"><b>P–H</b><span>ISO grade families</span></div>
+          </div>
+        </div>
+
+        <!-- signature: rhombic insert with tolerance callouts -->
+        <figure class="insertfig" data-reveal aria-label="Illustration of an 80-degree rhombic turning insert with tolerance callouts">
+          <svg viewBox="0 0 400 400" role="img">
+            <!-- measurement frame ticks -->
+            <g stroke="var(--edge)" stroke-width="1">
+              <line x1="20" y1="20" x2="380" y2="20"/>
+              <line x1="20" y1="380" x2="380" y2="380"/>
+            </g>
+            <!-- insert body: rhombus (80/100) with hole + chamfer -->
+            <g transform="translate(200,205)">
+              <polygon points="0,-120 118,0 0,120 -118,0" fill="var(--scarlet)" stroke="var(--ink)" stroke-width="3"/>
+              <polygon points="0,-96 94,0 0,96 -94,0" fill="none" stroke="var(--paper)" stroke-width="2" opacity=".55"/>
+              <circle r="30" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+              <circle r="14" fill="var(--ink)"/>
+            </g>
+            <!-- callouts -->
+            <line class="callline" x1="318" y1="205" x2="372" y2="205"/>
+            <text class="callout" x="330" y="196">R0.8</text>
+            <line class="callline" x1="200" y1="85" x2="200" y2="34"/>
+            <text class="callout" x="208" y="52">80°</text>
+            <text class="callout" x="28" y="360" fill="var(--scarlet)">CNMG 12 04 08</text>
+            <text class="callout" x="300" y="360">±0.005</text>
+          </svg>
+        </figure>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:clamp(46px,7vw,84px)"><div class="ticks"></div></div>
+  </section>
+
+  <!-- story -->
+  <section class="field-ink pad" id="story">
+    <div class="wrap story__grid">
+      <div data-reveal>
+        <span class="eyebrow">01 — Monozukuri</span>
+        <h2 class="anton display-l" style="margin-top:18px">Thirty years<br>at the edge</h2>
+      </div>
+      <div class="story__body" data-reveal>
+        <p>Takuho Industries has ground carbide to the tenth of a micron for three decades. What began as a single grinding line in Aichi is now a full tooling house — CNC turning, VMC machining, and coated-insert production under one roof.</p>
+        <p><em>Monozukuri</em> — the craft of making things properly — isn't a slogan here. It's the reason a Takuho edge holds its geometry cut after cut, from the first insert in the box to the last.</p>
+        <div class="kpis" style="margin-top:26px">
+          <div class="kpi"><b>1994</b><span>First grinding line</span></div>
+          <div class="kpi"><b>6</b><span>ISO grade families</span></div>
+          <div class="kpi"><b>100%</b><span>Batch inspected</span></div>
+          <div class="kpi"><b>PVD</b><span>In-house coating</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- capability -->
+  <section class="pad" id="capability">
+    <div class="wrap">
+      <div data-reveal>
+        <span class="eyebrow" style="color:var(--scarlet)">02 — The shop floor</span>
+        <h2 class="anton display-m" style="margin-top:16px">What we run</h2>
+        <p class="lede">One roof, one standard. Every process that touches a Takuho tool is controlled in-house — from pressing green carbide to inspecting the finished edge.</p>
+      </div>
+      <div class="caps" data-reveal>
+        <div class="cap"><span class="cap__no">/01</span><h3>CNC Turning</h3><p>High-repeatability turning centres for round tooling, shanks and bar work.</p><span class="spec">Ø 3–260 mm · ±0.005 mm</span></div>
+        <div class="cap"><span class="cap__no">/02</span><h3>VMC Machining</h3><p>Vertical machining centres for pockets, bodies and multi-axis fixture work.</p><span class="spec">4-axis · 24k rpm</span></div>
+        <div class="cap"><span class="cap__no">/03</span><h3>Precision Grinding</h3><p>Peripheral and profile grinding that sets the geometry the edge is known for.</p><span class="spec">Ra 0.2 µm finish</span></div>
+        <div class="cap"><span class="cap__no">/04</span><h3>PVD / CVD Coating</h3><p>TiAlN and TiCN coatings applied and controlled on our own lines.</p><span class="spec">2–4 µm layer</span></div>
+        <div class="cap"><span class="cap__no">/05</span><h3>Press &amp; Sinter</h3><p>Carbide substrate pressed and sintered to the grade the job needs.</p><span class="spec">P · M · K · N · S · H</span></div>
+        <div class="cap"><span class="cap__no">/06</span><h3>Metrology &amp; QC</h3><p>Optical and contact metrology on every batch before it leaves the floor.</p><span class="spec">100% inspected</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- grades: signature -->
+  <section class="field-petrol pad" id="grades">
+    <div class="wrap">
+      <div data-reveal>
+        <span class="eyebrow">03 — Read the colour</span>
+        <h2 class="anton display-m" style="margin-top:16px">The ISO grade system</h2>
+        <p class="lede">Every Takuho insert carries an ISO application colour. Match the band to your workpiece material and you're cutting in the right place — no guesswork.</p>
+      </div>
+      <div class="grades" data-reveal>
+        <div class="grade"><div class="grade__band" style="background:var(--iso-p)"><span class="grade__letter">P</span><span class="grade__iso">ISO P</span></div><div class="grade__body"><div class="grade__mat">Steel</div><div class="grade__eg">Carbon, alloy &amp; tool steels</div></div></div>
+        <div class="grade"><div class="grade__band" style="background:var(--iso-m)"><span class="grade__letter" style="color:var(--ink);text-shadow:none">M</span><span class="grade__iso" style="color:var(--ink);opacity:.75">ISO M</span></div><div class="grade__body"><div class="grade__mat">Stainless</div><div class="grade__eg">Austenitic &amp; duplex stainless</div></div></div>
+        <div class="grade"><div class="grade__band" style="background:var(--iso-k)"><span class="grade__letter">K</span><span class="grade__iso">ISO K</span></div><div class="grade__body"><div class="grade__mat">Cast Iron</div><div class="grade__eg">Grey, nodular &amp; malleable iron</div></div></div>
+        <div class="grade"><div class="grade__band" style="background:var(--iso-n)"><span class="grade__letter">N</span><span class="grade__iso">ISO N</span></div><div class="grade__body"><div class="grade__mat">Non-Ferrous</div><div class="grade__eg">Aluminium, copper &amp; brass</div></div></div>
+        <div class="grade"><div class="grade__band" style="background:var(--iso-s)"><span class="grade__letter">S</span><span class="grade__iso">ISO S</span></div><div class="grade__body"><div class="grade__mat">Superalloys</div><div class="grade__eg">Titanium &amp; heat-resistant alloys</div></div></div>
+        <div class="grade"><div class="grade__band" style="background:var(--iso-h)"><span class="grade__letter">H</span><span class="grade__iso">ISO H</span></div><div class="grade__body"><div class="grade__mat">Hardened</div><div class="grade__eg">Hardened steel 45–65 HRC</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- insert range -->
+  <section class="pad" id="range">
+    <div class="wrap">
+      <div data-reveal>
+        <span class="eyebrow" style="color:var(--scarlet)">04 — The range</span>
+        <h2 class="anton display-m" style="margin-top:16px">Inserts we make</h2>
+        <p class="lede">A working set of turning, milling and drilling geometries — the codes your machinists already know, ground the way Takuho grinds.</p>
+      </div>
+      <div class="range" data-reveal>
+
+        <a class="card" href="https://ventraonline.com.au" target="_blank" rel="noopener">
+          <div class="card__top">
+            <svg class="card__geo" viewBox="0 0 60 60" aria-hidden="true"><polygon points="30,6 54,50 6,50" fill="none" stroke="var(--ink)" stroke-width="3"/><circle cx="30" cy="38" r="7" fill="var(--scarlet)"/></svg>
+            <span class="card__tag">Turning</span>
+          </div>
+          <h3>TNMG</h3>
+          <div class="card__geom">60° triangular · negative</div>
+          <p>The workhorse for general steel turning. Strong edge, three cutting corners per side.</p>
+          <span class="card__link">View on store <span class="arw">→</span></span>
+        </a>
+
+        <a class="card" href="https://ventraonline.com.au" target="_blank" rel="noopener">
+          <div class="card__top">
+            <svg class="card__geo" viewBox="0 0 60 60" aria-hidden="true"><polygon points="30,6 52,30 30,54 8,30" fill="none" stroke="var(--ink)" stroke-width="3"/><circle cx="30" cy="30" r="7" fill="var(--scarlet)"/></svg>
+            <span class="card__tag">Turning</span>
+          </div>
+          <h3>CNMG</h3>
+          <div class="card__geom">80° rhombic · negative</div>
+          <p>Rigid roughing and medium turning where a stronger nose angle earns its keep.</p>
+          <span class="card__link">View on store <span class="arw">→</span></span>
+        </a>
+
+        <a class="card" href="https://ventraonline.com.au" target="_blank" rel="noopener">
+          <div class="card__top">
+            <svg class="card__geo" viewBox="0 0 60 60" aria-hidden="true"><polygon points="30,6 46,16 52,38 34,54 12,44 8,20" fill="none" stroke="var(--ink)" stroke-width="3"/><circle cx="30" cy="30" r="7" fill="var(--scarlet)"/></svg>
+            <span class="card__tag">Turning</span>
+          </div>
+          <h3>WNMG</h3>
+          <div class="card__geom">80° trigon · negative</div>
+          <p>Six corners of trigon geometry for profiling and cost-per-edge turning.</p>
+          <span class="card__link">View on store <span class="arw">→</span></span>
+        </a>
+
+        <a class="card" href="https://ventraonline.com.au" target="_blank" rel="noopener">
+          <div class="card__top">
+            <svg class="card__geo" viewBox="0 0 60 60" aria-hidden="true"><polygon points="30,4 48,30 30,56 12,30" fill="none" stroke="var(--ink)" stroke-width="3"/><circle cx="30" cy="30" r="7" fill="var(--scarlet)"/></svg>
+            <span class="card__tag">Finishing</span>
+          </div>
+          <h3>DNMG</h3>
+          <div class="card__geom">55° rhombic · negative</div>
+          <p>Sharp-angle geometry for finishing and profiling to a clean surface.</p>
+          <span class="card__link">View on store <span class="arw">→</span></span>
+        </a>
+
+        <a class="card" href="https://ventraonline.com.au" target="_blank" rel="noopener">
+          <div class="card__top">
+            <svg class="card__geo" viewBox="0 0 60 60" aria-hidden="true"><rect x="12" y="12" width="36" height="36" fill="none" stroke="var(--ink)" stroke-width="3"/><circle cx="30" cy="30" r="7" fill="var(--scarlet)"/></svg>
+            <span class="card__tag">Drilling</span>
+          </div>
+          <h3>SPMG</h3>
+          <div class="card__geom">square · positive</div>
+          <p>Peripheral drilling inserts for U-drills — free-cutting, well-broken chips.</p>
+          <span class="card__link">View on store <span class="arw">→</span></span>
+        </a>
+
+        <a class="card" href="https://ventraonline.com.au" target="_blank" rel="noopener">
+          <div class="card__top">
+            <svg class="card__geo" viewBox="0 0 60 60" aria-hidden="true"><polygon points="12,18 48,18 42,48 18,48" fill="none" stroke="var(--ink)" stroke-width="3"/><circle cx="30" cy="33" r="7" fill="var(--scarlet)"/></svg>
+            <span class="card__tag">Milling</span>
+          </div>
+          <h3>APMT</h3>
+          <div class="card__geom">parallelogram · positive</div>
+          <p>Shoulder and face milling inserts with a light, positive cutting action.</p>
+          <span class="card__link">View on store <span class="arw">→</span></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- precision badges -->
+  <section class="field-chrome pad">
+    <div class="wrap">
+      <div data-reveal>
+        <span class="eyebrow" style="color:var(--ink)">05 — What comes as standard</span>
+        <h2 class="anton display-m" style="margin-top:16px">Built to be trusted</h2>
+      </div>
+      <div class="badges" data-reveal>
+        <div class="badge"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M15 24l6 6 12-12" fill="none" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/></svg><span>100%<br>Inspected</span></div>
+        <div class="badge"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="3" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M8 24h32M24 8v32" stroke="var(--ink)" stroke-width="2"/></svg><span>±0.005 mm<br>Ground</span></div>
+        <div class="badge"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l6 6-6 6-6-6z" fill="var(--ink)"/><path d="M24 20v22" stroke="var(--ink)" stroke-width="3"/><path d="M14 42h20" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg><span>PVD TiAlN<br>Coated</span></div>
+        <div class="badge"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="none" stroke="var(--ink)" stroke-width="3"/><text x="24" y="30" font-family="Anton" font-size="18" text-anchor="middle" fill="var(--ink)">P-H</text></svg><span>ISO Grades<br>P to H</span></div>
+        <div class="badge"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 8h24v32l-12-7-12 7z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/></svg><span>Batch<br>Traceable</span></div>
+        <div class="badge"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l16 8v12c0 12-8 18-16 20-8-2-16-8-16-20V12z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/></svg><span>Edge-Prep<br>Controlled</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- cta -->
+  <section class="field-scarlet pad" id="buy">
+    <div class="wrap cta" data-reveal>
+      <span class="eyebrow" style="color:var(--paper)">Stocked &amp; shipping in India</span>
+      <h2 class="anton display-l">Put a Takuho edge on the job</h2>
+      <p>The full range of Takuho carbide inserts is available now through our online store — grades, geometries and sizes, ready to ship.</p>
+      <a class="btn btn--onink" href="https://ventraonline.com.au" target="_blank" rel="noopener">Shop the range <span class="arw">→</span></a>
+    </div>
+  </section>
+
+</main>
+
+<!-- footer -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="ticks" style="opacity:.25"></div>
+    <div class="foot">
+      <div>
+        <div class="brand"><span class="brand__dot"></span>TAKUHO</div>
+        <p class="foot__note">Takuho Industries — precision carbide tooling ground in Japan since 1994. Supplying inserts and cutting solutions worldwide.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#range">Turning inserts</a></li>
+          <li><a href="#range">Milling inserts</a></li>
+          <li><a href="#range">Drilling inserts</a></li>
+          <li><a href="#grades">Grade system</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#story">Our story</a></li>
+          <li><a href="#capability">Capability</a></li>
+          <li><a href="#buy">Quality</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Buy in India</h4>
+        <ul>
+          <li><a href="https://ventraonline.com.au" target="_blank" rel="noopener">Ventra Online store →</a></li>
+          <li><a href="mailto:hello@takuhoindustries.com">hello@takuhoindustries.com</a></li>
+          <li><span style="opacity:.6">Aichi, Japan</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>© 2026 Takuho Industries — takuhoindustries.com</span>
+      <span>Monozukuri · Est. 1994 · Made in Japan</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal
+  (function(){
+    var els = document.querySelectorAll('[data-reveal]');
+    if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      els.forEach(function(e){e.classList.add('in')});
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+    },{threshold:.14});
+    els.forEach(function(e){io.observe(e)});
+  })();
+
+  // mobile menu
+  (function(){
+    var nav = document.getElementById('nav');
+    var btn = document.getElementById('navtoggle');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      var open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true':'false');
+    });
+    nav.querySelectorAll('.navlinks a').forEach(function(a){
+      a.addEventListener('click', function(){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
+    });
+  })();
+</script>
+</body>
+</html>
